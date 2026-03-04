@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   <title>Bridge Transaction Stuck? How to Fix Cross-Chain Transfer Delays (2026)</title>
-  <meta name="description" content="Bridge stuck transaction? Fix cross-chain bridge delays: bridge transfer pending, funds not received, liquidity issues, message finality, explorers, and step-by-step recovery. Includes status checklist + best bridge selection criteria (2026) + deep FAQ." />
-  <meta name="author" content="Cross-Chain Operations Desk" />
+  <meta name="description" content="Bridge stuck transaction? Fix bridge transfer pending, bridge funds not received, liquidity issues, finality delays, and claim/execute steps. Practical cross-chain runbook + deep FAQ (2026)." />
+  <meta name="author" content="Cross-Chain Helpdesk" />
   <link rel="canonical" href="https://bridge-stuck.github.io/" />
 
   <meta property="og:title" content="Bridge Transaction Stuck? How to Fix Cross-Chain Transfer Delays (2026)" />
-  <meta property="og:description" content="Bridge transfer pending or funds not received? Diagnose bridge stuck transactions, liquidity problems, and cross-chain delays with a practical runbook + FAQ." />
+  <meta property="og:description" content="Fix cross-chain transfer delays: pending bridge tx, funds not received, liquidity problems, status checks, and recovery steps." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://bridge-stuck.github.io/" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -20,36 +20,35 @@
     "@context":"https://schema.org",
     "@type":"Article",
     "headline":"Bridge Transaction Stuck? How to Fix Cross-Chain Transfer Delays (2026)",
-    "author":{"@type":"Organization","name":"Cross-Chain Operations Desk"},
+    "author":{"@type":"Organization","name":"Cross-Chain Helpdesk"},
     "datePublished":"2026-03-04",
     "dateModified":"2026-03-04",
     "mainEntityOfPage":{"@type":"WebPage","@id":"https://bridge-stuck.github.io/"}
   }
   </script>
 
-  <!-- NEW FONTS (unique style) -->
+  <!-- Friendlier reading font (unique) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#0a0f1f;
-      --bg2:#0b1633;
-      --paper: rgba(255,255,255,.06);
-      --paper2: rgba(255,255,255,.09);
-      --border: rgba(255,255,255,.14);
+      --bg0:#071021;
+      --bg1:#0a1a33;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.09);
+      --border: rgba(255,255,255,.12);
 
-      --text:#eef3ff;
-      --muted: rgba(238,243,255,.72);
+      --text:#eef4ff;
+      --muted: rgba(238,244,255,.72);
 
-      --a:#22c55e;  /* green */
-      --b:#60a5fa;  /* blue */
-      --p:#a78bfa;  /* purple */
-      --y:#fbbf24;  /* amber */
-      --r:#fb7185;  /* rose */
+      --g:#22c55e;
+      --b:#60a5fa;
+      --p:#a78bfa;
+      --y:#fbbf24;
 
-      --shadow: 0 32px 90px rgba(0,0,0,.45);
+      --shadow: 0 28px 80px rgba(0,0,0,.45);
       --shadow2: 0 14px 42px rgba(0,0,0,.32);
 
       --max: 1180px;
@@ -58,28 +57,29 @@
     }
 
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
       color:var(--text);
       background:
-        radial-gradient(900px 480px at 14% 8%, rgba(96,165,250,.18), transparent 60%),
-        radial-gradient(900px 480px at 86% 10%, rgba(34,197,94,.14), transparent 60%),
-        radial-gradient(900px 520px at 50% 115%, rgba(167,139,250,.12), transparent 62%),
-        linear-gradient(160deg, var(--bg), var(--bg2));
-      font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      line-height:1.65;
+        radial-gradient(900px 520px at 18% 10%, rgba(96,165,250,.20), transparent 60%),
+        radial-gradient(900px 520px at 84% 12%, rgba(34,197,94,.16), transparent 60%),
+        radial-gradient(900px 520px at 50% 120%, rgba(167,139,250,.12), transparent 62%),
+        linear-gradient(160deg, var(--bg0), var(--bg1));
+      font-family: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      line-height: 1.75;
       overflow-x:hidden;
     }
-    a{color:#bcd6ff; text-decoration:none}
+    a{color:#cfe0ff; text-decoration:none}
     a:hover{text-decoration:underline}
 
     .container{max-width:var(--max); margin:0 auto; padding:0 18px}
 
-    /* Top bar (keyword in brand) */
+    /* Top bar */
     .topbar{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(14px);
-      background: rgba(10,15,31,.55);
+      background: rgba(7,16,33,.56);
       border-bottom: 1px solid rgba(255,255,255,.10);
     }
     .topbar-inner{
@@ -88,13 +88,14 @@
     }
     .brand{
       display:flex; align-items:center; gap:12px;
-      min-width: 260px;
+      min-width: 280px;
     }
     .logo{
       width:40px; height:40px; border-radius:16px;
       background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(96,165,250,.92));
       box-shadow: 0 18px 45px rgba(34,197,94,.12);
       position:relative; overflow:hidden;
+      flex:0 0 auto;
     }
     .logo:after{
       content:"";
@@ -112,7 +113,7 @@
     }
     .brand-sub{
       margin-top:2px;
-      font-weight:700;
+      font-weight:600;
       font-size:12px;
       color:var(--muted);
     }
@@ -121,18 +122,18 @@
       display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end;
       font-size:13px;
     }
-    .nav a{color: rgba(238,243,255,.78)}
+    .nav a{color: rgba(238,244,255,.78)}
     .nav a:hover{color: var(--text); text-decoration:none}
 
     /* Buttons (ONE CTA in hero) */
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      display:inline-flex; align-items:center; justify-content:center;
       padding:12px 16px;
       border-radius:999px;
       border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.06);
       color:var(--text);
-      font-weight:900;
+      font-weight:800;
       text-decoration:none !important;
       box-shadow: var(--shadow2);
       transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
@@ -143,51 +144,53 @@
       color:#07121a;
       border:1px solid rgba(255,255,255,.18);
       background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(96,165,250,.92));
-      box-shadow: 0 28px 70px rgba(34,197,94,.12);
+      box-shadow: 0 26px 70px rgba(34,197,94,.14);
     }
     .btn-big{
-      padding: 18px 34px;
+      padding: 18px 36px;
       font-size: 16px;
-      min-width: min(620px, 100%);
+      min-width: min(640px, 100%);
     }
 
-    /* Sections */
+    /* Sections / panels */
     .section{padding: 18px 0}
     .panel{
       border-radius: var(--r2);
       border:1px solid var(--border);
-      background: linear-gradient(180deg, var(--paper2), var(--paper));
+      background: linear-gradient(180deg, var(--card2), var(--card));
       box-shadow: var(--shadow2);
       overflow:hidden;
     }
-    .pad{padding: 22px}
-    .divider{height:1px; background: rgba(255,255,255,.10); margin: 14px 0}
+    .pad{padding: 24px}
+    .divider{height:1px; background: rgba(255,255,255,.10); margin: 16px 0}
     .muted{color: var(--muted)}
 
-    h1,h2,h3{
-      margin:0;
-      letter-spacing:-.03em;
-    }
+    h1,h2,h3{margin:0}
     h1{
-      font-family: "DM Serif Display", ui-serif, Georgia, serif;
-      font-weight:400;
-      font-size: clamp(34px, 3.7vw, 56px);
-      line-height:1.02;
-      margin-top: 10px;
+      font-family: "Fraunces", ui-serif, Georgia, serif;
+      font-weight:700;
+      letter-spacing:-.03em;
+      font-size: clamp(34px, 3.6vw, 56px);
+      line-height:1.05;
+      margin-top: 12px;
+      max-width: 980px;
     }
     h2{
+      font-weight:800;
+      letter-spacing:-.02em;
       font-size: 22px;
       margin-bottom: 10px;
     }
     h3{
+      font-weight:800;
+      letter-spacing:-.01em;
       font-size: 16px;
-      letter-spacing:-.02em;
       margin-bottom: 8px;
     }
-    p{margin:0 0 10px}
+    p{margin:0 0 12px}
 
     /* HERO */
-    .hero{padding: 26px 0 10px}
+    .hero{padding: 28px 0 12px}
     .hero-card{
       border-radius: var(--r2);
       border:1px solid rgba(255,255,255,.14);
@@ -196,12 +199,13 @@
         radial-gradient(920px 280px at 84% 12%, rgba(34,197,94,.18), transparent 62%),
         linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
       box-shadow: var(--shadow);
-      padding: 22px;
+      padding: 26px;
       position:relative;
-      overflow:hidden;
     }
+
     .chips{
       display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-bottom: 6px;
     }
     .chip{
       display:inline-flex; align-items:center; gap:10px;
@@ -209,57 +213,46 @@
       border-radius:999px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
-      font-weight:900;
+      font-weight:800;
       font-size:13px;
-      color: rgba(238,243,255,.86);
+      color: rgba(238,244,255,.88);
     }
     .dot{
       width:8px; height:8px; border-radius:99px;
-      background: linear-gradient(135deg, var(--a), var(--b));
+      background: linear-gradient(135deg, var(--g), var(--b));
       box-shadow: 0 0 0 4px rgba(34,197,94,.10);
     }
 
     .hero-lead{
       max-width: 980px;
       margin-top: 12px;
-      font-size: 16px;
-      color: rgba(238,243,255,.84);
+      font-size: 17px;
+      color: rgba(238,244,255,.86);
     }
     .hero-actions{
-      margin-top: 16px;
+      margin-top: 18px;
       display:flex;
       justify-content:center;
       align-items:center;
     }
 
-    .signal-grid{
-      margin-top: 16px;
+    /* Readable highlights (replaces cramped bottom cards) */
+    .highlights{
+      margin-top: 18px;
       display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap:12px;
     }
-    .signal{
+    .hl{
       border-radius: 18px;
       border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      padding: 14px;
-      display:flex; gap:12px; align-items:flex-start;
+      background: rgba(0,0,0,.18);
+      padding: 14px 14px;
     }
-    .tag{
-      flex:0 0 auto;
-      padding:6px 10px;
-      border-radius:999px;
-      font-weight:950;
-      font-size:12px;
-      color:#07121a;
-    }
-    .tag.y{background: var(--y)}
-    .tag.b{background: var(--b)}
-    .tag.r{background: var(--r)}
-    .signal b{display:block}
-    .signal span{color: var(--muted); font-size:13px}
+    .hl b{display:block; margin-bottom:6px}
+    .hl span{color: var(--muted); font-size:14px}
 
-    /* Grids */
+    /* grids */
     .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
     .card{
       border-radius: var(--r1);
@@ -270,18 +263,19 @@
     ul{margin: 8px 0 0 18px; color: var(--muted)}
     li{margin: 6px 0}
 
-    /* Tables */
+    /* table */
     .table-wrap{
       overflow:auto;
       border-radius: 18px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.14);
+      margin-top:12px;
     }
     table{
       width:100%;
       min-width: 900px;
       border-collapse: collapse;
-      color: rgba(238,243,255,.92);
+      color: rgba(238,244,255,.92);
     }
     th,td{
       padding:12px 12px;
@@ -293,12 +287,12 @@
       font-size:12px;
       text-transform: uppercase;
       letter-spacing: .10em;
-      color: rgba(238,243,255,.70);
+      color: rgba(238,244,255,.70);
       background: rgba(0,0,0,.22);
     }
     tr:last-child td{border-bottom:none}
 
-    /* Input */
+    /* input */
     .checker{
       display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:10px;
     }
@@ -314,21 +308,21 @@
       width:100%;
       border:none; outline:none;
       background: transparent;
-      color: rgba(238,243,255,.95);
+      color: rgba(238,244,255,.95);
       font-size:14px;
-      font-family: "IBM Plex Sans", system-ui;
+      font-family: "Source Sans 3", system-ui;
     }
     .kbd{
-      font-weight:900;
+      font-weight:800;
       font-size:12px;
-      color: rgba(238,243,255,.78);
+      color: rgba(238,244,255,.78);
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       padding: 4px 8px;
       border-radius: 10px;
     }
 
-    /* Sources */
+    /* sources */
     .sources{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
     .src{
       display:inline-flex; align-items:center; gap:8px;
@@ -336,7 +330,7 @@
       border-radius:999px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.06);
-      color: rgba(238,243,255,.86);
+      color: rgba(238,244,255,.88);
       font-size:13px;
       text-decoration:none;
     }
@@ -350,10 +344,10 @@
       padding: 14px;
     }
     details + details{margin-top:10px}
-    summary{cursor:pointer; font-weight:900}
+    summary{cursor:pointer; font-weight:800}
     details p{margin:10px 0 0; color: var(--muted)}
 
-    /* Author */
+    /* author */
     .author{
       display:flex; gap:12px; align-items:flex-start;
       border-radius: 18px;
@@ -379,7 +373,7 @@
       transform: rotate(12deg);
     }
     .smallcaps{
-      color: rgba(238,243,255,.68);
+      color: rgba(238,244,255,.68);
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: .10em;
@@ -387,7 +381,7 @@
 
     .footer{
       padding: 26px 0 40px;
-      color: rgba(238,243,255,.65);
+      color: rgba(238,244,255,.65);
       font-size: 13px;
     }
     .footer-row{
@@ -398,7 +392,7 @@
 
     @media (max-width: 980px){
       .grid2{grid-template-columns:1fr}
-      .signal-grid{grid-template-columns:1fr}
+      .highlights{grid-template-columns:1fr}
       table{min-width: 760px}
     }
   </style>
@@ -450,32 +444,24 @@
             This page is a practical runbook for <b>bridge funds not received</b>, <b>cross chain bridge stuck</b>, and “<b>bridge not receiving funds</b>”.
           </p>
 
-          <!-- ONE CTA centered -->
           <div class="hero-actions">
             <a class="btn btn-primary btn-big" href="#fix" aria-label="Start bridge fix runbook">Start the bridge fix runbook</a>
           </div>
 
-          <div class="signal-grid" aria-label="Quick diagnosis signals">
-            <div class="signal">
-              <span class="tag y">Delay</span>
-              <div>
-                <b>Pending for hours</b>
-                <span>Often finality or relayer backlog; check both chain explorers + bridge UI.</span>
-              </div>
+          <!-- Removed cramped bottom cards; replaced with 2 calm highlights -->
+          <div class="highlights" aria-label="Reading highlights">
+            <div class="hl">
+              <b>Most common reality</b>
+              <span>
+                Source tx is confirmed, but the destination step still needs relay/proof or an <b>execute/claim</b> action.
+                Verify both chains before doing anything.
+              </span>
             </div>
-            <div class="signal">
-              <span class="tag b">Msg</span>
-              <div>
-                <b>Source success, destination missing</b>
-                <span>Message not executed yet; needs relay/proof or manual claim step.</span>
-              </div>
-            </div>
-            <div class="signal">
-              <span class="tag r">Liq</span>
-              <div>
-                <b>Fast bridge says “insufficient liquidity”</b>
-                <span>Liquidity route cannot fill; fallback path may be slower but reliable.</span>
-              </div>
+            <div class="hl">
+              <b>Fast bridge caveat</b>
+              <span>
+                “Insufficient liquidity” means the fast route can’t fill right now. Split the transfer or use the canonical bridge for the network.
+              </span>
             </div>
           </div>
 
@@ -494,7 +480,7 @@
               or a liquidity/route constraint in fast bridges.
             </p>
 
-            <div class="table-wrap" aria-label="Bridge delay map" style="margin-top:12px">
+            <div class="table-wrap" aria-label="Bridge delay map">
               <table>
                 <thead>
                   <tr>
@@ -508,7 +494,7 @@
                   <tr>
                     <td><b>Source tx confirmed, no funds on destination</b></td>
                     <td>Message not executed / claim step needed</td>
-                    <td>Bridge UI status + destination explorer</td>
+                    <td>Bridge UI state + destination explorer</td>
                     <td>Find “claim/execute” and retry</td>
                   </tr>
                   <tr>
@@ -519,21 +505,21 @@
                   </tr>
                   <tr>
                     <td><b>Bridge funds not received</b> after “success”</td>
-                    <td>Wrong destination chain/token / address mismatch</td>
-                    <td>Check destination chain + token contract</td>
-                    <td>Add token / verify chain selection</td>
+                    <td>Wrong destination chain/token or wallet not showing token</td>
+                    <td>Destination chain + token contract verification</td>
+                    <td>Switch chain / add token / verify address</td>
                   </tr>
                   <tr>
-                    <td><b>Fast bridge fails / insufficient liquidity</b></td>
-                    <td>Liquidity route cannot fill</td>
-                    <td>Try smaller size or slower canonical route</td>
-                    <td>Split transfer or use canonical bridge</td>
+                    <td><b>Fast bridge fails / “insufficient liquidity”</b></td>
+                    <td>Liquidity route cannot fill right now</td>
+                    <td>Try smaller size or canonical route</td>
+                    <td>Split transfer or switch route</td>
                   </tr>
                   <tr>
-                    <td><b>Tx stuck/pending on source</b></td>
+                    <td><b>Tx pending on source</b></td>
                     <td>Gas too low / congestion</td>
-                    <td>Explorer: “pending” + fee level</td>
-                    <td>Speed up / replace transaction</td>
+                    <td>Explorer status + fee level</td>
+                    <td>Speed up / replace tx</td>
                   </tr>
                 </tbody>
               </table>
@@ -543,17 +529,17 @@
 
             <div class="grid2">
               <div class="card">
-                <h3>Key idea</h3>
-                <p class="muted">
-                  Bridging is often a <b>multi-step pipeline</b>: deposit → message relay/proof → destination execution/claim.
-                  If any step is delayed, you see “pending” or “not received”.
+                <h3>Golden rule</h3>
+                <p class="muted" style="margin:0">
+                  Treat bridging like a pipeline: <b>deposit → relay/proof → destination execution</b>.
+                  Your fix depends on which step is delayed.
                 </p>
               </div>
               <div class="card">
-                <h3>What NOT to do</h3>
+                <h3>Don’t do this</h3>
                 <ul>
-                  <li>Don’t spam multiple bridge transfers “to fix it”.</li>
-                  <li>Don’t sign random “claim” links from DMs.</li>
+                  <li>Don’t send a second bridge transfer “to fix it”.</li>
+                  <li>Don’t click claim links from DMs/ads.</li>
                   <li>Don’t change destination chain mid-process.</li>
                 </ul>
               </div>
@@ -564,15 +550,15 @@
       </div>
     </section>
 
-    <!-- HOW BRIDGES WORK -->
+    <!-- HOW -->
     <section id="how" class="section">
       <div class="container">
         <div class="panel">
           <div class="pad">
             <h2>How Cross Chain Bridges Work</h2>
             <p class="muted">
-              There are two broad categories: <b>canonical bridges</b> (chain-native messaging) and <b>liquidity/fast bridges</b> (inventory-based).
-              Canonical is often slower but deterministic; fast bridges are quick when liquidity is available.
+              Two categories explain most delays: <b>canonical bridges</b> (message/proof based) and <b>liquidity bridges</b> (inventory/fast route).
+              Canonical is often slower but deterministic; liquidity bridges are fast when pools have capacity.
             </p>
 
             <div class="grid2" style="margin-top:12px">
@@ -580,16 +566,16 @@
                 <h3>Canonical bridge (message-based)</h3>
                 <ul>
                   <li>Deposit on source → message proves on destination</li>
-                  <li>May require finality windows / challenge periods</li>
-                  <li>Sometimes requires a manual “claim/execute” step</li>
+                  <li>May require finality windows / additional confirmations</li>
+                  <li>Sometimes requires manual “claim/execute”</li>
                 </ul>
               </div>
               <div class="card">
                 <h3>Liquidity bridge (fast route)</h3>
                 <ul>
-                  <li>Funds are paid out from bridge liquidity pools</li>
+                  <li>Bridge pays from liquidity pools</li>
                   <li>Can fail due to <b>liquidity problems</b></li>
-                  <li>Often supports splitting transfers to reduce impact</li>
+                  <li>Splitting transfers often helps</li>
                 </ul>
               </div>
             </div>
@@ -599,31 +585,31 @@
       </div>
     </section>
 
-    <!-- PENDING HOURS -->
+    <!-- PENDING -->
     <section id="pending" class="section">
       <div class="container">
         <div class="panel">
           <div class="pad">
             <h2>Bridge Pending for Hours – What It Means</h2>
             <p class="muted">
-              “Pending for hours” usually means: finality not reached, bridge relayers are congested, or the destination execution step is waiting to be triggered.
+              If a bridge is pending for hours, it’s usually finality requirements, relayer congestion, or waiting on a destination execution step.
             </p>
 
             <div class="grid2" style="margin-top:12px">
               <div class="card">
-                <h3>Normal delay reasons</h3>
+                <h3>Normal reasons</h3>
                 <ul>
-                  <li>Network congestion (slow confirmations)</li>
-                  <li>Batching/queues on bridge relayers</li>
-                  <li>Finality requirements to prevent reorg risk</li>
+                  <li>Chain congestion and slower confirmations</li>
+                  <li>Bridge batching/queues (relayers)</li>
+                  <li>Finality windows to reduce reorg risk</li>
                 </ul>
               </div>
               <div class="card">
-                <h3>Actionable checks</h3>
+                <h3>Useful checks</h3>
                 <ul>
-                  <li>Confirm source tx is finalized (not just “included”)</li>
-                  <li>Check bridge status page / UI state</li>
-                  <li>Look for “claim/execute” on destination</li>
+                  <li>Is the source tx <b>finalized</b>?</li>
+                  <li>Does the bridge UI show <b>ready to claim</b>?</li>
+                  <li>Is there a destination tx in the explorer?</li>
                 </ul>
               </div>
             </div>
@@ -640,8 +626,8 @@
           <div class="pad">
             <h2>Bridge Funds Not Received</h2>
             <p class="muted">
-              If your bridge UI shows success but you don’t see the token, the most common reasons are: wrong destination chain selected,
-              token not added in wallet, wrapped vs native asset mismatch, or the destination execution hasn’t happened yet.
+              If the bridge says completed but you see nothing, the typical causes are: wrong destination chain in wallet,
+              token not added, wrapped/bridged token differences, or the destination execution still hasn’t happened.
             </p>
 
             <div class="grid2" style="margin-top:12px">
@@ -649,16 +635,16 @@
                 <h3>Fast fixes</h3>
                 <ul>
                   <li>Switch wallet to the correct destination chain</li>
-                  <li>Add the token contract (don’t rely on auto-detect)</li>
+                  <li>Add the token contract manually (don’t rely on auto-detect)</li>
                   <li>Search your address on the destination explorer</li>
                 </ul>
               </div>
               <div class="card">
                 <h3>Common gotchas</h3>
                 <ul>
-                  <li>Receiving wrapped asset (e.g., “bridged” token)</li>
-                  <li>Funds arrive to the same address, but on a different chain</li>
-                  <li>Bridge requires a separate claim transaction</li>
+                  <li>Receiving “bridged” token contract (not the native one)</li>
+                  <li>Same address, different chain (easy to miss)</li>
+                  <li>Claim/execute required on destination</li>
                 </ul>
               </div>
             </div>
@@ -668,15 +654,14 @@
       </div>
     </section>
 
-    <!-- LIQUIDITY PROBLEMS -->
+    <!-- LIQUIDITY -->
     <section id="liquidity" class="section">
       <div class="container">
         <div class="panel">
           <div class="pad">
             <h2>Bridge Liquidity Problems</h2>
             <p class="muted">
-              Liquidity bridges can show “available” then fail at execution if pools are drained or inventory is temporarily unavailable.
-              The safest workaround is often a smaller transfer or switching to the canonical bridge for that network.
+              Liquidity bridges can fail when pools are temporarily drained. If small transfers work but large ones don’t, that’s your signal.
             </p>
 
             <div class="grid2" style="margin-top:12px">
@@ -685,15 +670,15 @@
                 <ul>
                   <li>Error mentions “insufficient liquidity” / “route unavailable”</li>
                   <li>Large transfers fail but small transfers succeed</li>
-                  <li>Quotes change dramatically within minutes</li>
+                  <li>Quotes change drastically in short time</li>
                 </ul>
               </div>
               <div class="card">
                 <h3>Best mitigation</h3>
                 <ul>
-                  <li>Split transfer into smaller chunks</li>
-                  <li>Use canonical bridge if time-sensitive risk is low</li>
-                  <li>Avoid extreme fees from panic re-tries</li>
+                  <li>Split transfers into smaller chunks</li>
+                  <li>Switch to canonical bridge if needed</li>
+                  <li>Avoid panic retries that add fees</li>
                 </ul>
               </div>
             </div>
@@ -703,15 +688,15 @@
       </div>
     </section>
 
-    <!-- CHECK STATUS -->
+    <!-- STATUS -->
     <section id="status" class="section">
       <div class="container">
         <div class="panel">
           <div class="pad">
             <h2>How to Check Bridge Transaction Status</h2>
             <p class="muted">
-              You need two data points: the <b>source chain tx hash</b> (deposit) and whether a <b>destination execution/claim</b> occurred.
-              Paste your tx hash below to keep notes consistent (no external calls).
+              You need two facts: the <b>source chain tx hash</b> and whether a <b>destination execution/claim</b> happened.
+              Paste a tx hash below (no external calls—just keeps your notes clean).
             </p>
 
             <div class="checker" aria-label="Tx hash input">
@@ -719,17 +704,17 @@
                 <span class="kbd">TX</span>
                 <input id="txHash" placeholder="Paste source bridge tx hash (0x...)" aria-label="Bridge transaction hash" />
               </div>
-              <a class="btn" href="#fix">Jump to fix steps</a>
+              <a class="btn" href="#fix">Go to fix steps</a>
             </div>
 
             <div class="divider"></div>
 
-            <h3>Practical verification checklist</h3>
+            <h3>Verification checklist</h3>
             <ul>
-              <li>Confirm the tx is <b>confirmed/finalized</b> on the source chain explorer.</li>
-              <li>Check the bridge UI for: <b>processing → ready to claim → completed</b>.</li>
-              <li>Search your address on the destination chain explorer for the received token transfer or mint.</li>
-              <li>If there is a “claim/execute” step, run it on the destination chain with enough gas.</li>
+              <li>Confirm the tx is <b>confirmed/finalized</b> on the source explorer.</li>
+              <li>Check bridge UI status: <b>processing → ready to claim → completed</b>.</li>
+              <li>Search your address on destination explorer for the received transfer/mint.</li>
+              <li>If “claim/execute” exists, run it on destination with enough gas.</li>
             </ul>
 
           </div>
@@ -737,15 +722,15 @@
       </div>
     </section>
 
-    <!-- BEST BRIDGES -->
+    <!-- BEST -->
     <section id="best" class="section">
       <div class="container">
         <div class="panel">
           <div class="pad">
             <h2>Best Crypto Bridges for 2026</h2>
             <p class="muted">
-              Instead of a hype ranking, use a selection checklist: <b>security model</b>, <b>finality time</b>, <b>liquidity depth</b>,
-              <b>supported chains</b>, and <b>status transparency</b>. For L2s, the canonical bridge is often the baseline for correctness.
+              Instead of a hype ranking, choose based on <b>security model</b>, <b>finality time</b>, <b>liquidity depth</b>, and <b>status transparency</b>.
+              For many L2 ecosystems, the canonical bridge is the baseline for correctness.
             </p>
 
             <div class="grid2" style="margin-top:12px">
@@ -754,26 +739,22 @@
                 <ul>
                   <li><b>Maximum correctness:</b> canonical bridge</li>
                   <li><b>Speed:</b> liquidity bridge with deep pools</li>
-                  <li><b>Low risk:</b> clear docs + status page + audited design</li>
+                  <li><b>Lower surprises:</b> clear docs + explorer support</li>
                 </ul>
               </div>
               <div class="card">
-                <h3>Minimum due-diligence</h3>
+                <h3>Before large transfers</h3>
                 <ul>
-                  <li>Read the official docs for your source/destination</li>
+                  <li>Read official docs for your chains</li>
                   <li>Verify you’re on the correct domain</li>
-                  <li>Check active incidents/status before large transfers</li>
+                  <li>Check incidents/status pages if available</li>
                 </ul>
               </div>
             </div>
 
             <div class="divider"></div>
 
-            <h3>Authoritative sources (unique set for this page)</h3>
-            <p class="muted">
-              Official documentation and explorers you can reference while diagnosing “bridge not receiving funds”.
-            </p>
-
+            <h3>Authoritative sources (unique for this page)</h3>
             <div class="sources" aria-label="Sources">
               <a class="src" href="https://docs.arbitrum.io/" target="_blank" rel="nofollow noopener">Arbitrum Docs</a>
               <a class="src" href="https://wiki.polygon.technology/docs/pos/bridge/" target="_blank" rel="nofollow noopener">Polygon PoS Bridge Docs</a>
@@ -790,54 +771,51 @@
       </div>
     </section>
 
-    <!-- FIX RUNBOOK -->
+    <!-- FIX -->
     <section id="fix" class="section">
       <div class="container">
         <div class="panel">
           <div class="pad">
             <h2>How to Fix Bridge Transfer Issues</h2>
             <p class="muted">
-              Use this exact order for <b>bridge stuck</b>, <b>bridge transfer pending</b>, and <b>bridge funds not received</b>.
-              The goal is to avoid duplicate sends and to identify whether you need to <b>wait</b>, <b>claim</b>, or <b>switch route</b>.
+              Use this order for <b>bridge stuck</b>, <b>bridge transfer pending</b>, and <b>bridge funds not received</b>.
+              The goal is to avoid duplicate sends and identify whether you need to <b>wait</b>, <b>claim</b>, or <b>switch route</b>.
             </p>
 
             <div class="grid2" style="margin-top:12px">
               <div class="card">
-                <h3>Step-by-step runbook</h3>
+                <h3>Runbook</h3>
                 <ol style="margin: 10px 0 0 18px; color: var(--muted)">
-                  <li><b>Confirm source tx status</b> (confirmed/finalized, not pending).</li>
-                  <li><b>Verify bridge UI state</b> (processing vs ready-to-claim).</li>
-                  <li><b>Check destination explorer</b> for token transfer/mint to your address.</li>
-                  <li><b>If “claim/execute” exists</b>, perform it on destination with enough gas.</li>
-                  <li><b>If liquidity issue</b>, split transfer or use canonical bridge fallback.</li>
-                  <li><b>If source tx is pending</b>, speed up/replace (don’t submit a new bridge transfer).</li>
+                  <li><b>Confirm source tx finalized</b> (not pending).</li>
+                  <li><b>Check bridge UI state</b> (processing vs ready-to-claim).</li>
+                  <li><b>Check destination explorer</b> for token transfer/mint.</li>
+                  <li><b>Execute claim</b> if required (destination chain).</li>
+                  <li><b>Handle liquidity</b>: split transfer or canonical route.</li>
+                  <li><b>If source pending</b>: speed up/replace—do not resend.</li>
                 </ol>
               </div>
 
               <div class="card">
-                <h3>Stop conditions (high-risk)</h3>
+                <h3>Stop conditions (safety)</h3>
                 <ul>
-                  <li>“Claim” links coming from DMs or ads</li>
-                  <li>Bridge domain looks slightly misspelled</li>
-                  <li>Approval requests to unknown contracts unrelated to bridging</li>
+                  <li>Claim links from DMs/ads</li>
+                  <li>Misspelled bridge domains</li>
+                  <li>Approval requests to unrelated contracts</li>
                 </ul>
                 <div class="divider"></div>
-                <h3>Safe habits</h3>
+                <h3>Good habits</h3>
                 <ul>
                   <li>Bookmark official bridge domains</li>
-                  <li>Keep tx hashes for both chains</li>
-                  <li>Test with small amounts before large transfers</li>
+                  <li>Keep source + destination tx hashes</li>
+                  <li>Test small before large transfers</li>
                 </ul>
               </div>
             </div>
 
             <div class="divider"></div>
-
             <p class="muted" style="margin:0">
-              Long-tail targets: <b>arbitrum bridge stuck</b>, <b>polygon bridge stuck</b>, <b>zksync bridge delay</b>,
-              <b>bridge not receiving funds</b>, <b>cross chain transfer delay</b>.
+              Long-tail: <b>arbitrum bridge stuck</b>, <b>polygon bridge stuck</b>, <b>zksync bridge delay</b>, <b>bridge not receiving funds</b>, <b>cross chain transfer delay</b>.
             </p>
-
           </div>
         </div>
       </div>
@@ -853,7 +831,7 @@
               <div class="avatar" aria-hidden="true"></div>
               <div>
                 <div class="smallcaps">Author</div>
-                <div style="font-weight:900">Cross-Chain Operations Desk</div>
+                <div style="font-weight:800">Cross-Chain Helpdesk</div>
                 <div class="muted" style="margin-top:6px">
                   Last updated: <b>March 4, 2026</b> • Educational content only (not financial advice).
                 </div>
@@ -861,7 +839,7 @@
             </div>
             <div class="divider"></div>
             <p class="muted" style="margin:0">
-              Tip: treat bridges as multi-step systems (deposit → relay/proof → execution). Your troubleshooting should match the step where it’s stuck.
+              Tip: if the bridge UI shows “ready to claim”, the transfer won’t complete until the destination execution happens.
             </p>
           </div>
         </div>
@@ -878,72 +856,60 @@
             <details>
               <summary>Why is my bridge transfer pending for hours?</summary>
               <p>
-                Common reasons are finality requirements (confirmations), relayer/queue congestion, or a destination execution step that hasn’t triggered yet.
-                Check the source explorer, then the bridge UI for a “ready to claim/execute” status.
+                Common reasons are finality/confirmations, relayer backlog, or waiting on destination execution. Confirm the source tx is finalized,
+                then check if the bridge UI offers a claim/execute step.
               </p>
             </details>
 
             <details>
               <summary>Bridge funds not received — are they lost?</summary>
               <p>
-                Usually not. Many bridges require a separate destination execution/claim step, or your wallet simply isn’t showing the token.
-                Switch to the correct destination chain, add the token contract, and verify on the destination explorer.
+                Usually not. Switch to the correct destination chain, add the token contract if needed, and verify on the destination explorer.
+                Many bridges require a separate claim/execute step.
               </p>
             </details>
 
             <details>
               <summary>How do I check bridge transaction status properly?</summary>
               <p>
-                Use the source tx hash to confirm the deposit is finalized, then verify whether a destination tx exists (execution/mint/transfer).
-                Bridge UIs often show step-by-step states; cross-check with chain explorers.
+                Verify the source tx first (finalized), then look for destination execution (mint/transfer) on the destination explorer.
+                Bridge UI status should match what explorers show.
               </p>
             </details>
 
             <details>
               <summary>What causes “bridge stuck transaction” on Arbitrum / Polygon / zkSync?</summary>
               <p>
-                The cause is usually one of: delayed finality, bridge message execution delays, or a manual claim step.
-                Each ecosystem has canonical bridge docs and explorers you can use to validate progress.
+                It’s typically finality delay, message relaying delay, or a manual claim step. Use the official docs/explorers for each ecosystem
+                to confirm progress end-to-end.
               </p>
             </details>
 
             <details>
               <summary>What if the bridge says “insufficient liquidity”?</summary>
               <p>
-                That typically affects fast/liquidity bridges. Try a smaller amount, split transfers, or switch to the canonical bridge route.
-                Don’t keep retrying the same large transfer if liquidity is the blocker.
+                That’s a fast-bridge limitation. Split the transfer into smaller amounts or switch to the canonical bridge route
+                (slower, but more deterministic).
               </p>
             </details>
 
             <details>
-              <summary>My source transaction is still pending — should I send again?</summary>
+              <summary>My source transaction is pending — should I send again?</summary>
               <p>
-                No. If the source tx is pending, fix the pending tx first (speed up/replace via wallet). Sending again can create duplicate transfers
-                and complicate recovery.
-              </p>
-            </details>
-
-            <details>
-              <summary>How long should a cross chain transfer delay last?</summary>
-              <p>
-                It depends on the bridge type, chain congestion, and finality windows. Canonical bridges can be slower but deterministic.
-                If the bridge UI shows “ready to claim” and you don’t claim, it will appear “stuck” until you execute the claim step.
+                No. Fix the pending source tx (speed up/replace). Resending can create duplicates and makes recovery harder.
               </p>
             </details>
 
             <details>
               <summary>How do I avoid bridge problems next time?</summary>
               <p>
-                Use official bridge domains, test with a small amount, keep deadlines realistic, avoid peak congestion periods when possible,
-                and always keep both tx hashes (source + destination) for troubleshooting.
+                Bookmark official bridge domains, test small first, keep both tx hashes, and avoid clicking claim links from DMs/ads.
               </p>
             </details>
 
             <div class="divider"></div>
-
             <p class="muted" style="margin:0">
               Primary keywords: <b>bridge stuck transaction</b>, <b>bridge transfer pending</b>, <b>crypto bridge stuck</b>, <b>bridge funds not received</b>, <b>cross chain bridge stuck</b>.
-              Long-tail: <b>arbitrum bridge stuck</b>, <b>polygon bridge stuck</b>, <b>zksync bridge delay</b>, <b>bridge not receiving funds</b>, <b>cross chain transfer delay</b>.
             </p>
           </div>
         </div>
